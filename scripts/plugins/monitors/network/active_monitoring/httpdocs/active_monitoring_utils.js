@@ -32,7 +32,7 @@ $(function() {
 
     const addMeasurementFilter = (tableAPI) => {
 
-        const MEASUREMENT_COLUMN_INDEX = 0;
+        const MEASUREMENT_COLUMN_INDEX = 1;
 
         // build filters for datatable
         const measurements = Object.keys(measurements_info);
@@ -42,7 +42,7 @@ $(function() {
             filters.push({
                 key: measurement,
                 label: `${measurements_info[measurement].label}`,
-                regex: `^(${measurement}://).+`
+                regex: `^(${measurements_info[measurement].label})$`
             });
         }
 
@@ -60,7 +60,7 @@ $(function() {
 
     const addAlertedFilter = (tableAPI) => {
 
-        const ALERTED_COLUMN_INDEX = 7;
+        const ALERTED_COLUMN_INDEX = 8;
         const filters = [
             {
                 key: 'alerted',
@@ -459,7 +459,6 @@ $(function() {
                 data: 'threshold',
                 className: 'text-center',
                 render: function(data, type, row) {
-
                     if(type === 'display' || type === 'filter') {
                         if(row.threshold)
                             return `${row.threshold} ${row.unit}`
@@ -487,7 +486,8 @@ $(function() {
             },
             {
                 data: 'last_mesurement_time',
-                className: 'text-center'
+                className: 'text-center',
+		render: $.fn.dataTableExt.absoluteFormatSecondsToHHMMSS,
             },
             {
                 data: 'last_ip',
