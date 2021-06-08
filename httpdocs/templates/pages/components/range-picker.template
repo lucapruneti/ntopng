@@ -270,6 +270,7 @@ const endEpoch = {{ (_GET['epoch_end'] or _GET['epoch_end'] or 'undefined') }};
         $inputBeginEpoch.datetimepicker('date', prev);
         $inputEndEpoch.datetimepicker('date', now);
 
+
         $selectPresets.on('change', function(e) {
 
             // remove the active class

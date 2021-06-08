@@ -469,7 +469,8 @@ else
 				 active = page == "periodicity_map",
 				 page_name = "periodicity_map",
 				 url = periodicity_map_link,
-				 label = "<i class=\"fas fa-lg fa-clock\"></i> <span style='position: absolute; top: 0' class=\"badge bg-pill bg-secondary\">"..num_periodicity.."</span>",
+				 label = "<i class=\"fas fa-lg fa-clock\"></i>",
+				 badge_num = num_periodicity,
 			      },
 			      {
 				 hidden = not service_map_available,
@@ -2215,8 +2216,11 @@ graph_utils.drawGraphs(ifId, schema, tags, _GET["zoom"], url, selected_epoch, {
 })
 
 elseif(page == "traffic_report") then
-   dofile(dirs.installdir .. "/pro/scripts/lua/enterprise/traffic_report.lua")
-   end
+   package.path = dirs.installdir .. "/pro/scripts/lua/enterprise/?.lua;" .. package.path
+   local traffic_report = require "traffic_report"
+
+   traffic_report.generate_traffic_report(tskey)
+end
 end
 
 if(not only_historical) and (host ~= nil) then
